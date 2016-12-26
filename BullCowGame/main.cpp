@@ -70,7 +70,6 @@ void PlayGame()
 	int32 Difficulty = AskDifficulty();
 	BCGame.Reset(Difficulty);
 	int32 MaxTries = BCGame.GetMaxTries();
-
 	//loop asking for guesses while the game is NOT won
 	//and there is still tries remaining
 	while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries)
@@ -132,7 +131,8 @@ int32 AskDifficulty()
 	do
 	{
 		std::cout << "What difficulty setting do you want (1 : easy, 2 : medium, 3 : hard) ? ";
-		std::cin >> DifficultyLevel;		
+		std::cin >> DifficultyLevel;
+		std::cout << std::endl;
 	} while (DifficultyLevel != 1 && DifficultyLevel != 2 && DifficultyLevel != 3);
 
 		return DifficultyLevel;

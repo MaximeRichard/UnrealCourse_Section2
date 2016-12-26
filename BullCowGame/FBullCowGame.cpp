@@ -18,10 +18,29 @@ int32 FBullCowGame::GetMaxTries() const
 	TMap<int32, int32> WordLengthToMaxTries{ { 3,4 },{ 4,7 },{ 5,10 },{ 6,16 },{ 7,20 } };
 	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
-FString FBullCowGame::GetLevelWord(int32 Difficulty) const
+FString FBullCowGame::GetDifficultyWord(int32 Difficulty) const
 {
-	FString WordsToDifficulty[] = {"ant", "squid", "payback"}; //these MUST be isograms
-	return WordsToDifficulty[Difficulty-1];
+	// TODO check for a better design of the word list (random from specific ranges, list stored outside of code) 
+	FString ChosenWord;
+	FString EasyWords[] = { "ant", "dog", "cat", "ben", "pig" }; //these MUST be isograms
+	FString MediumWords[] = { "zombie", "squid", "bricks", "magic", "rabids" };
+	FString HardWords[] = { "karting", "padlock", "zephyr", "update", "backlog" };
+	switch (Difficulty)
+	{
+	case 1:
+		ChosenWord = EasyWords[rand() % 5]; // Get a random index from 0 to 4
+		break;
+	case 2:
+		ChosenWord = MediumWords[rand() % 5];
+		break;
+	case 3:
+		ChosenWord = HardWords[rand() % 5];
+		break;
+	default:
+		break;
+	}
+	
+	return ChosenWord;
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -47,7 +66,7 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 // Act as constructor
 void FBullCowGame::Reset(int32 Difficulty)
 {
-	const FString HIDDEN_WORD = GetLevelWord(Difficulty); 
+	const FString HIDDEN_WORD = GetDifficultyWord(Difficulty);
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrenTry = 1;
 	bGameIsWon = false;

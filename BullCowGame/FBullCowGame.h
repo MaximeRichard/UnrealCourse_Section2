@@ -33,7 +33,7 @@ public:
 	FBullCowGame(); //Constructor
 
 	int32 GetMaxTries() const;
-	FString GetLevelWord(int32 Difficulty) const;
+	
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
@@ -52,4 +52,5 @@ private:
 
 	bool IsIsogram(FString) const;
 	bool IsLowercase(FString) const;
+	FString GetDifficultyWord(int32 Difficulty) const;
 };
