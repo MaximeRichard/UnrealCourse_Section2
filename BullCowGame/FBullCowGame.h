@@ -33,13 +33,14 @@ public:
 	FBullCowGame(); //Constructor
 
 	int32 GetMaxTries() const;
+	FString GetLevelWord(int32 Difficulty) const;
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
 	
 	EGuessStatus CheckGuessValidity(FString) const;
 
-	void Reset();
+	void Reset(int32);
 	FBullCowCount SubmitValidGuess(FString);
 
 // ^^ Ignore for now ^^

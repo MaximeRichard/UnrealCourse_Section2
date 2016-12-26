@@ -19,6 +19,7 @@ void PlayGame();
 void PrintGameSummary();
 FText GetValidGuess();
 bool AskToPlayAgain();
+int32 AskDifficulty();
 
 FBullCowGame BCGame; //instanciate a new game, reused every play
 
@@ -66,7 +67,8 @@ void PrintGameSummary() {
 // Manage the main game loop to completion
 void PlayGame()
 {
-	BCGame.Reset();
+	int32 Difficulty = AskDifficulty();
+	BCGame.Reset(Difficulty);
 	int32 MaxTries = BCGame.GetMaxTries();
 
 	//loop asking for guesses while the game is NOT won
@@ -122,4 +124,16 @@ bool AskToPlayAgain()
 	FText Response = "";
 	std::getline(std::cin, Response);
 	return (Response[0] == 'y' || Response[0] == 'Y' );
+}
+
+int32 AskDifficulty()
+{
+	int32 DifficultyLevel;
+	do
+	{
+		std::cout << "What difficulty setting do you want (1 : easy, 2 : medium, 3 : hard) ? ";
+		std::cin >> DifficultyLevel;		
+	} while (DifficultyLevel != 1 && DifficultyLevel != 2 && DifficultyLevel != 3);
+
+		return DifficultyLevel;
 }

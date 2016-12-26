@@ -6,7 +6,7 @@
 using int32 = int;
 #define TMap std::map
 
-FBullCowGame::FBullCowGame() { Reset(); }
+FBullCowGame::FBullCowGame() { Reset(1); }
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrenTry; }
 
@@ -17,6 +17,11 @@ int32 FBullCowGame::GetMaxTries() const
 { 
 	TMap<int32, int32> WordLengthToMaxTries{ { 3,4 },{ 4,7 },{ 5,10 },{ 6,16 },{ 7,20 } };
 	return WordLengthToMaxTries[MyHiddenWord.length()];
+}
+FString FBullCowGame::GetLevelWord(int32 Difficulty) const
+{
+	FString WordsToDifficulty[] = {"ant", "squid", "payback"}; //these MUST be isograms
+	return WordsToDifficulty[Difficulty-1];
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -40,9 +45,9 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 }
 
 // Act as constructor
-void FBullCowGame::Reset()
+void FBullCowGame::Reset(int32 Difficulty)
 {
-	const FString HIDDEN_WORD = "ant"; //this MUST be an isogram
+	const FString HIDDEN_WORD = GetLevelWord(Difficulty); 
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrenTry = 1;
 	bGameIsWon = false;
@@ -117,3 +122,4 @@ bool FBullCowGame::IsLowercase(FString Word) const
 
 	return true;
 }
+
